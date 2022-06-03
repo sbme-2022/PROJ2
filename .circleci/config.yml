@@ -1,0 +1,29 @@
+version: 2.1
+orbs:
+  node: circleci/node@5.0.2
+jobs:
+  Build-Deploy:
+
+    docker:
+      - image: "cimg/base:stable"
+    steps:
+      - node/install
+      - checkout
+      - run:
+          name: install dependencies
+          command: |
+            npm install
+      - run:
+          name: Tests
+          command: |
+            npm run test
+
+workflows:
+  deployment:
+    jobs:
+    # Build project on Main Branch
+      - Build-Deploy:
+         filters:
+            branches:
+              only: main
+      
