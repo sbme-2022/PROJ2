@@ -1,14 +1,8 @@
 const axios = require('axios');
-const API_request = ()=>{
+const API_request = async function(){
     headers = {"apikey": "kes6gUlcNf5ip1pjLhfgr2KI8CTfuaWN"};
-    axios.get('https://api.apilayer.com/exchangerates_data/latest', {headers: headers})
-        .then(res => {
-        console.log(`statusCode: ${res.status}`);
-        return(res.data);
-    })
-    .catch(error => {
-        console.error(error);
-    });
+    const res = await axios.get('https://api.apilayer.com/exchangerates_data/latest', {headers: headers})
+    return res.data;
 }
 
-exports.API_request = API_request;
+module.exports = API_request;
