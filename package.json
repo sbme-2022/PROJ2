@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "cd src && node index.js",
-    "dev": "cd src && nodemon index.js"
+    "dev": "cd src && nodemon index.js",
+    "jasmine": "npx jasmine",
+    "test": "npm run jasmine"
   },
   "repository": {
     "type": "git",
@@ -18,9 +20,13 @@
   },
   "homepage": "https://github.com/sbme-2022/PROJ2#readme",
   "dependencies": {
-    "express": "^4.18.1"
+    "axios": "^0.27.2",
+    "express": "^4.18.1",
+    "mongoose": "^6.3.5"
   },
   "devDependencies": {
+    "jasmine": "^4.1.0",
+    "jasmine-spec-reporter": "^7.0.0",
     "nodemon": "^2.0.16"
   }
 }
