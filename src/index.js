@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 
-require('./database')()
+require('./startup/database')()
 require('./startup/routes')(app);
 
 app.get('/', (_req, res) => res.send('Currency Converter PROJ2!'))
