@@ -1,7 +1,5 @@
 const axios = require('axios');
-const dotenv = require('dotenv');
-
-dotenv.config();
+require('dotenv').config();
 
 const API_request = async function () {
     headers = { "apikey": process.env.apikey };
