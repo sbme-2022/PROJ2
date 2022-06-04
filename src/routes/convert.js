@@ -1,15 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const { CurrencyRate } = require("../models/rates");
 
-router.get("/convert/:from/:to/:amount", async (req, res) => {
+const { convert } = require("../controllers/convert");
 
-});
+const validate = require('../middleware/validate');
+const validateConversion = require('../middleware/validateConversion');
 
+router.get("/convert/:fromCurrency/:toCurrency/:amount", validate(validateConversion), convert);
 
-function logServerErrorAndRespond(err, friendlyMessage, res, statusCode = 500) {
-    console.log(friendlyMessage, err);
-    res.status(statusCode).send(`${friendlyMessage}: ${err.message}`);
-}
 
 module.exports = router;

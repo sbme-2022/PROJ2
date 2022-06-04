@@ -19,16 +19,25 @@ const currencyRateSchema = new mongoose.Schema({
     }
 });
 
-const currencyRate = mongoose.model('currencyRate', currencyRateSchema);
+const CurrencyRate = mongoose.model('currencyRate', currencyRateSchema);
 
 function validateCurrencyRate(currencyRate) {
-    const schema = {
+    const schema = Joi.object({
         base: Joi.string().min(3).max(3).required(),
         date: Joi.date().required(),
         rates: Joi.object().required()
-    };
+    });
 
-    return Joi.validate(currencyRate, schema);
+    return schema.validate(currencyRate);
+
 }
-exports.CurrencyRate = currencyRate;
+
+async function getLatestRates() {
+    const result = await CurrencyRate.find().sort({ _id: 1 }).limit(1);
+    const rates = result[0].rates;
+    return rates
+}
+
+exports.CurrencyRate = CurrencyRate;
 exports.validate = validateCurrencyRate;
+exports.getLatestRates = getLatestRates;
