@@ -43,7 +43,7 @@ const fetchToDB = function async(){
     const data = await API_request();
 
     if(!data){
-        return res.status(400).send('API request failed');
+        throw new Error('API request failed');
     }
 
     const {base, date, rates} = data;
