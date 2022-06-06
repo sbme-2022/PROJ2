@@ -1,8 +1,14 @@
-const express = require('express')
-const app = express()
-require('./database')()
+const express = require("express");
+const job = require("../startup/scheduler");
+const app = express();
 
-app.get('/', (_req, res) => res.send('Currency Converter PROJ2!'))
+require("./startup/database")();
+require("./startup/routes")(app);
+
+app.get("/", (_req, res) => res.send("Currency Converter PROJ2!"));
+job();
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`server started at http://localhost:${PORT}`))
+app.listen(PORT, () =>
+  console.log(`server started at http://localhost:${PORT}`)
+);
