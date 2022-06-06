@@ -7,6 +7,15 @@ const fetch = async (_req, res) => {
         const { base, date, rates } = data;
         const currencyRate = new CurrencyRate({ base, date, rates });
         const { error } = validate(currencyRate);
+
+        if(!data){
+            return res.status(400).send('API request failed');
+        }
+
+        const {base, date, rates} = data;
+        const currencyRate = new CurrencyRate({base, date, rates});
+        
+        const {error} = validate(currencyRate);
         if (error) {
             return res.status(400).send(error.details[0].message);
         }
