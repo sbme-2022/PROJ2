@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
+const API_request = require('../utils/API_Request');
 
 const currencyRateSchema = new mongoose.Schema({
     base: {
@@ -38,6 +39,24 @@ async function getLatestRates() {
     return rates
 }
 
+const fetchToDB = function async(){
+    const data = await API_request();
+
+    if(!data){
+        return res.status(400).send('API request failed');
+    }
+
+    const {base, date, rates} = data;
+    const currencyRate = new CurrencyRate({base, date, rates});
+
+    const {error} = validateCurrencyRate(currencyRate);
+    if (error) {
+        throw new Error(error.details[0].message);
+    }
+    currencyRate.save();
+    return currencyRate;
+}
+
 exports.CurrencyRate = CurrencyRate;
 exports.validate = validateCurrencyRate;
-exports.getLatestRates = getLatestRates;
+module.exports = {fetchToDB, getLatestRates};
